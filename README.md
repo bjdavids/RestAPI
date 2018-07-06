@@ -3,8 +3,7 @@
 TASK 1 - The RAML spec itself
 
 SOLUTION DESIGN: I have designed resourceAPI.raml for customer object which can be extended for further objects like order, product etc. 
-                 JSON schemas have been used for the objects as well as the samples. Basic Authentication, resourceTypes and traits have also been implemented.
-				 For better explanation of the API, I have implemented Customer as standalone (resourceTypes and traits have been explained with Order\Product).
+                 JSON schemas have been used for the objects as well as the samples. Basic Authentication, resourceTypes and traits have                  also been implemented. For better explanation of the API, I have implemented Customer as standalone (resourceTypes and                  traits have been explained with Order\Product).
                  The following functionalities have been implemented.
 				 
 				List customers - HTTP GET method, URI - /api/v1/customer
@@ -48,9 +47,7 @@ Step13: The Customer service representatives will then verify that the necessary
                 
 TASK 4 - Commentary on how the API could be extended for use case 3
 
-SOLUTION DESIGN: By using resourceTypes and traits, the API can be reused and extended to support future resources like order, products etc. 
-                 collection resourceType is to represent a collection of items and item resourceType is to represent any single item.
-				 traits that I have used are hasRequestItem, hasResponseItem, hasResponseCollection and hasNotFound.
+SOLUTION DESIGN: By using resourceTypes and traits, the API can be reused and extended to support future resources like order, products etc. collection resourceType is to represent a collection of items and item resourceType is to represent any single item. traits that I have used are hasRequestItem, hasResponseItem, hasResponseCollection and hasNotFound.
 
 STEPS:
 Step1: JSON Schemas and samples in separate file - I had separated the JSON schemas and sample in separate files and used the !include feature in RAML.
