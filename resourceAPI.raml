@@ -75,7 +75,6 @@ traits:
         body:
           application/json:
             example: !include sample/error.json
-			
 /customer:
   get:
     description: List all Customers
@@ -84,8 +83,8 @@ traits:
       200:
         body:
           application/json:
-		    type: customer[]
-            example: !include sample/customerExample.json
+	  type: customer[]
+          example: !include sample/customerExample.json
 				
   post:
     description: Create a new customer
