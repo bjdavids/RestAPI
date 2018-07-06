@@ -83,32 +83,29 @@ traits:
       200:
         body:
           application/json:
-	  type: customer[]
-          example: !include sample/customerExample.json
-				
+  type: customer[]
+          example: !include sample/customerExample.json				
   post:
     description: Create a new customer
-	securedBy: [basicAuth]
+securedBy: [basicAuth]
     body:
       application/json:
         type: customer		
-        example: !include sample/customerExample.json
-		
+        example: !include sample/customerExample.json		
     responses:
       201:
         body:
           application/json:
-            example: {"message": "Customer added successfully"}
-			
-	  500:
+            example: {"message": "Customer added successfully"}			
+  500:
           body:
               application/json:
               example: {"message" : "Internal Server Error" }
               
   /{firstName}:
     get:
-	  description: Get a Customer by First Name
-	  securedBy: [basicAuth]
+  description: Get a Customer by First Name
+  securedBy: [basicAuth]
       responses:
         200:
           body:
