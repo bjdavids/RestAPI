@@ -1,0 +1,202 @@
+#%RAML 1.0
+title: Resource (Customer, Order, Product etc.) API
+version: v1
+protocols: [ HTTPS ]
+baseUri: https://localhost:8001/api/{version}
+mediaType: application/json
+securedBy: basicAuth
+
+securitySchemes:
+  basicAuth:
+    description: Each request must contain the headers necessary for
+                 basic authentication
+    type: Basic Authentication
+    describedBy:
+      headers:
+        Authorization:
+          description: Used to send the Base64-encoded "username:password"
+                       credentials
+          type: string
+      responses:
+        401:
+          description: |
+            Unauthorized. Either the provided username and password
+            combination is invalid, or the user is not allowed to access
+            the content provided by the requested URL.
+
+types:
+    customer: !include schema/customer.json
+    order:    !include schema/order.json
+    product:  !include schema/product.json	
+	
+resourceTypes:
+  collection:
+    usage: resourceType to represent a collection of items
+    description: A collection of <<resourcePathName|!uppercamelcase>>
+    get:
+      description: List all <<resourcePathName|!uppercamelcase>>        
+      is: [ hasResponseCollection: { typeName: <<typeName>> } ]
+    post:
+      description: Create a new <<resourcePathName|!uppercamelcase>>
+      is: [ hasRequestItem: { typeName: <<typeName>> } ]
+  item:
+    usage: resourceType to represent any single item
+    description: A single <<typeName>>
+    get:
+      description: Get a <<typeName>>
+      is: [ hasResponseItem: { typeName: <<typeName>> }, hasNotFound ]
+    put:
+      description: Update a <<typeName>>
+      is: [ hasRequestItem: { typeName: <<typeName>> }, hasResponseItem: { typeName: <<typeName>> }, hasNotFound ]
+    delete:
+      description: Delete a <<typeName>>
+      is: [ hasNotFound ]
+      responses:
+        204:
+traits:
+  hasRequestItem:
+    body:
+      application/json:
+        type: <<typeName>>
+  hasResponseItem:
+    responses:
+      200:
+        body:
+          application/json:
+            type: <<typeName>>
+  hasResponseCollection:
+    responses:
+      200:
+        body:
+          application/json:
+            type: <<typeName>>[]
+  hasNotFound:
+    responses:
+      404:
+        body:
+          application/json:
+            example: !include sample/error.json
+			
+/customer:
+  get:
+    description: List all Customers
+    securedBy: [basicAuth]
+    responses:
+      200:
+        body:
+          application/json:
+		    type: customer[]
+            example: !include sample/customerExample.json
+				
+  post:
+    description: Create a new customer
+	securedBy: [basicAuth]
+    body:
+      application/json:
+        type: customer		
+        example: !include sample/customerExample.json
+		
+    responses:
+      201:
+        body:
+          application/json:
+            example: {"message": "Customer added successfully"}
+			
+	  500:
+          body:
+              application/json:
+              example: {"message" : "Internal Server Error" }
+              
+  /{firstName}:
+    get:
+	  description: Get a Customer by First Name
+	  securedBy: [basicAuth]
+      responses:
+        200:
+          body:
+            application/json:
+			  type: customer
+              example: !include sample/customerExample.json
+			  
+		404:
+          body:
+              application/json:
+              example: {"message" : "Customer not found" }
+        
+    put:
+	  description: Update a customer
+	  securedBy: [basicAuth]
+      body:
+        application/json:
+          type: customer
+          example: !include sample/customerExample.json
+		  
+      responses:
+        200:
+          body:
+            application/json:
+              example: {"message": "Customer updated successfully"}
+				
+		500:
+          body:
+              application/json:
+              example: {"message" : "Internal Server Error" }		
+		
+	delete:
+	  description: Delete a customer
+	  securedBy: [basicAuth]
+      responses:
+        200:
+          body:
+            application/json:
+              example: {"message": "Customer deleted successfully"}
+				
+		404:
+          body:
+              application/json:
+              example: {"message" : "Customer not found" }
+
+        500:
+          body:
+              application/json:
+              example: {"message" : "Internal Server Error" }			  
+			
+/order:
+  type: { collection: { typeName: order } }
+  get:
+      description: List all Orders        
+      is: [ hasResponseCollection: { typeName: <<typeName>> } ]
+  post:
+      description: Create a new Order
+      is: [ hasRequestItem: { typeName: <<typeName>> } ]
+        
+  /{orderId}:
+    type: { item: { typeName: order } }
+	get:
+      description: Get an Order
+      is: [ hasResponseItem: { typeName: <<typeName>> }, hasNotFound ]
+    put:
+      description: Update an Order
+      is: [ hasRequestItem: { typeName: <<typeName>> }, hasResponseItem: { typeName: <<typeName>> }, hasNotFound ]
+    delete:
+      description: Delete an Order
+      is: [ hasNotFound ] 
+
+/product:
+  type: { collection: { typeName: product } }
+  get:      
+  post:      
+        
+  /{productId}:
+    type: { item: { typeName: product } }
+	get:      
+    put:      
+    delete:      	  
+
+  
+  
+  
+    
+    
+    
+        
