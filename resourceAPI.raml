@@ -140,13 +140,11 @@ delete:
         200:
           body:
             application/json:
-              example: {"message": "Customer deleted successfully"}
-				
-		404:
+              example: {"message": "Customer deleted successfully"}				
+404:
           body:
               application/json:
               example: {"message" : "Customer not found" }
-
         500:
           body:
               application/json:
@@ -163,7 +161,7 @@ delete:
         
   /{orderId}:
     type: { item: { typeName: order } }
-	get:
+get:
       description: Get an Order
       is: [ hasResponseItem: { typeName: <<typeName>> }, hasNotFound ]
     put:
@@ -180,7 +178,7 @@ delete:
         
   /{productId}:
     type: { item: { typeName: product } }
-	get:      
+get:      
     put:      
     delete:      	  
 
