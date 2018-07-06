@@ -110,9 +110,9 @@ securedBy: [basicAuth]
         200:
           body:
             application/json:
-	  type: customer
+ type: customer
               example: !include sample/customerExample.json			  
-	404:
+404:
           body:
               application/json:
               example: {"message" : "Customer not found" }
@@ -133,10 +133,9 @@ securedBy: [basicAuth]
           body:
               application/json:
               example: {"message" : "Internal Server Error" }		
-		
-	delete:
-	  description: Delete a customer
-	  securedBy: [basicAuth]
+delete:
+  description: Delete a customer
+  securedBy: [basicAuth]
       responses:
         200:
           body:
