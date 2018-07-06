@@ -1,12 +1,12 @@
 {
 		"$schema": "http://json-schema.org/schema",
-		"title": "order",
-		"description": "Order Schema",
+		"title": "product",
+		"description": "Product Schema",
 		"type": "object",
         
 		"properties": {
-		  "orderId": {
-            "description": "Order Id",
+		  "productId": {
+            "description": "Product Id",
             "type": "string",
             "required": true
           

@@ -1,0 +1,51 @@
+{
+		"$schema": "http://json-schema.org/schema",
+		"title": "customer",
+		"description": "Customer Schema",
+		"type": "object",
+        
+		"properties": {
+		  "firstName": {
+            "description": "Customer First Name",
+            "type": "string",
+            "required": true
+          },
+          "lastName": {
+            "description": "Customer Last Name",
+            "type": "string",
+            "required": true
+          },
+          "address": {
+            "description": "Customer Address",
+            "type": "object",
+			"required": false,
+            "properties": {
+              "addressLine": {
+                "description": "Customer Address Line",
+				"type": "string",
+				"required": true
+              },
+			  "city": {
+                "description": "Customer Address City",
+				"type": "string",
+				"required": true
+              },
+			  "state": {
+                "description": "Customer Address State",
+				"type": "string",
+				"required": true
+              },
+			  "country": {
+                "description": "Customer Address Country",
+				"type": "string",
+				"required": true
+              },
+              "postCode": {
+                "description": "Customer Address Postal Code",
+				"type": "integer",
+				"required": true
+              }
+            }
+          }
+        }
+      }
