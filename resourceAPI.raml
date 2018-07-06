@@ -110,29 +110,26 @@ securedBy: [basicAuth]
         200:
           body:
             application/json:
-			  type: customer
-              example: !include sample/customerExample.json
-			  
-		404:
+	  type: customer
+              example: !include sample/customerExample.json			  
+	404:
           body:
               application/json:
               example: {"message" : "Customer not found" }
         
     put:
-	  description: Update a customer
-	  securedBy: [basicAuth]
+  description: Update a customer
+  securedBy: [basicAuth]
       body:
         application/json:
           type: customer
-          example: !include sample/customerExample.json
-		  
+          example: !include sample/customerExample.json		  
       responses:
         200:
           body:
             application/json:
-              example: {"message": "Customer updated successfully"}
-				
-		500:
+              example: {"message": "Customer updated successfully"}				
+500:
           body:
               application/json:
               example: {"message" : "Internal Server Error" }		
